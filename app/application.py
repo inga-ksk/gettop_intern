@@ -1,4 +1,6 @@
-from pages.product_page import ProductPage
+from pages.main_page import MainPage
+from pages.catalog_page import CatalogPage
+from pages.header import Header
 
 
 class Application:
@@ -6,9 +8,5 @@ class Application:
         self.driver = driver
 
         self.main_page = MainPage(self.driver)
+        self.catalog_page = CatalogPage(self.driver)
         self.header = Header(self.driver)
-        self.search_results_page = SearchResultsPage(self.driver)
-        self.bestsellers_page = BestsellersPage(self.driver)
-        self.sign_in_page = SignIn(self.driver)
-        self.cart_page = CartPage(self.driver)
-        self.product_page = ProductPage(self.driver)

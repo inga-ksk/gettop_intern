@@ -1,10 +1,12 @@
+from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 from app.application import Application
 
 def browser_init(context):
     """
     :param context: Behave context
     """
-    context.driver = webdriver.Chrome(executable_path="/Users/Inga/Documents/Careerist/Automation/python-selenium-automation/chromedriver.exe")
+    context.driver = webdriver.Chrome(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/chromedriver.exe")
     # context.browser = webdriver.Safari()
     # context.browser = webdriver.Firefox()
 
