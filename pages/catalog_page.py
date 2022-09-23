@@ -14,7 +14,10 @@ class CatalogPage(Page):
     CATALOG_PAGE_2 = (By.CSS_SELECTOR, 'ul.page-numbers li:nth-child(2)')
     CATALOG_RIGHT_ARROW = (By.CSS_SELECTOR, 'i.icon-angle-right')
     CATALOG_LEFT_ARROW = (By.CSS_SELECTOR, 'i.icon-angle-left')
-
+    FILTER_DROPDOWN = (By.CSS_SELECTOR, 'select.orderby')
+    AVERAGE_RATING_FITER = (By.CSS_SELECTOR, 'option[value="rating"]')
+    FIRST_PRODUCT = (By.CSS_SELECTOR, 'div.products div:nth-child(1)')
+    FIRST_PRODUCT_RATING = (By.CSS_SELECTOR, 'div.products div:nth-child(1) div.star-rating')
 
     def hover_product_image(self):
         product_thumbnail = self.find_element(*self.PRODUCT_IMAGE)
@@ -48,3 +51,12 @@ class CatalogPage(Page):
 
     def catalog_switch_left_arrow_click(self):
         self.wait_for_element_click(*self.CATALOG_LEFT_ARROW)
+
+    def filter_dropdown_click(self):
+        self.wait_for_element_click(*self.FILTER_DROPDOWN)
+
+    def average_rating_filter_click(self):
+        self.wait_for_element_click(*self.AVERAGE_RATING_FITER)
+
+    def verify_1st_prod_rating_is_present(self):
+        self.wait_for_element_appear(*self.FIRST_PRODUCT_RATING)
