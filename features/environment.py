@@ -7,8 +7,8 @@ from selenium import webdriver
 # from support.logger import logger, MyListener
 
 # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
-#bs_user = ''
-#bs_key = ''
+bs_user = 'inga.alyakskina@gmail.com'
+bs_key = 'dAZBUY36sSEBN1pPi2pH'
 
 # Allure command:
 # behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/product_page.feature
@@ -18,14 +18,14 @@ def browser_init(context):
     :param context: Behave context
     """
     #context.driver = webdriver.Chrome(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/chromedriver.exe")
-    # context.driver = webdriver.Safari()
+    #context.driver = webdriver.Safari()
     #context.driver = webdriver.Firefox(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/geckodriver.exe")
 
     ## HEADLESS MODE ####
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('window-size=1920x1080');
-    context.driver = webdriver.Chrome(chrome_options=options)
+    # options = webdriver.ChromeOptions()
+    # options.add_argument('--headless')
+    # options.add_argument('window-size=1920x1080');
+    # context.driver = webdriver.Chrome(chrome_options=options)
 
     # Mobile - run tests on mobile web browser
     # options = webdriver.ChromeOptions()
@@ -40,14 +40,14 @@ def browser_init(context):
     # context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
     # for browerstack ###
-    # desired_cap = {
-    #     'browser': 'Firefox',
-    #     'os_version': '11',
-    #     'os': 'Windows',
-    #     'name': test_name
-    # }
-    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    # context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+    desired_cap = {
+        'browser': 'Firefox',
+        'os_version': '11',
+        'os': 'Windows',
+        'name': 'Quick view'
+    }
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
