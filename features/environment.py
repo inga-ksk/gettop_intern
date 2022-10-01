@@ -1,19 +1,24 @@
-#import allure
-#from allure_commons.types import AttachmentType
+import allure
+from allure_commons.types import AttachmentType
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.safari.options import Options as SafariOptions
 from app.application import Application
 from selenium import webdriver
-# from selenium.webdriver.support.events import EventFiringWebDriver
-# from support.logger import logger, MyListener
+
+#from selenium.webdriver.support.events import EventFiringWebDriver
+#from support.logger import logger, MyListener
 
 # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
 bs_user = 'inga.alyakskina@gmail.com'
 bs_key = 'dAZBUY36sSEBN1pPi2pH'
 
 # Allure command:
-# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/product_page.feature
+#behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/product_catalog.feature
+#allure serve test_results/
 
-def browser_init(context):
+def browser_init(context, test_name):
     """
     :param context: Behave context
     """
@@ -35,16 +40,24 @@ def browser_init(context):
 
     ### EventFiringWebDriver - log file ###
     ### for drivers ###
-    # context.driver = EventFiringWebDriver(webdriver.Chrome(), MyListener())
+    #context.driver = EventFiringWebDriver(webdriver.Chrome(), MyListener())
     # for headless mode ###
     # context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
     # for browerstack ###
+    # Windows Firefox
+    # desired_cap = {
+    #     'browser': 'Firefox',
+    #     'os_version': '11',
+    #     'os': 'Windows',
+    #     'name': 'Quick view'
+    # }
+    # iPhone
     desired_cap = {
-        'browser': 'Firefox',
-        'os_version': '11',
-        'os': 'Windows',
-        'name': 'Quick view'
+            'browser': 'Safari',
+            'os_version': '16',
+            'device': 'iPhone 14',
+            'name': test_name
     }
     url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
     context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
@@ -56,7 +69,7 @@ def browser_init(context):
 
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
-    browser_init(context)
+    browser_init(context, scenario.name)
 
 
 def before_step(context, step):
