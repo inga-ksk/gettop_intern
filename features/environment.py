@@ -11,8 +11,8 @@ from selenium import webdriver
 #from support.logger import logger, MyListener
 
 # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
-bs_user = 'inga.alyakskina@gmail.com'
-bs_key = 'dAZBUY36sSEBN1pPi2pH'
+# bs_user = 'inga.alyakskina@gmail.com'
+# bs_key = 'dAZBUY36sSEBN1pPi2pH'
 
 # Allure command:
 #behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/product_catalog.feature
@@ -22,7 +22,7 @@ def browser_init(context, test_name):
     """
     :param context: Behave context
     """
-    #context.driver = webdriver.Chrome(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/chromedriver.exe")
+    context.driver = webdriver.Chrome(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/chromedriver.exe")
     #context.driver = webdriver.Safari()
     #context.driver = webdriver.Firefox(executable_path="/Users/Inga/Documents/Careerist/Automation/gettop_intern/geckodriver.exe")
 
@@ -32,11 +32,11 @@ def browser_init(context, test_name):
     # options.add_argument('window-size=1920x1080');
     # context.driver = webdriver.Chrome(chrome_options=options)
 
-    # Mobile - run tests on mobile web browser
-    # options = webdriver.ChromeOptions()
-    # mobile_emulation = {"deviceName": "Nexus 5"}
-    # options.add_experimental_option("mobileEmulation", mobile_emulation)
-    # context.driver = webdriver.Chrome(chrome_options=options)
+    # MOBILE WEB - run tests on mobile web browser
+    options = webdriver.ChromeOptions()
+    mobile_emulation = {"deviceName": "Nexus 5"}
+    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    context.driver = webdriver.Chrome(chrome_options=options)
 
     ### EventFiringWebDriver - log file ###
     ### for drivers ###
@@ -44,23 +44,26 @@ def browser_init(context, test_name):
     # for headless mode ###
     # context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
-    # for browerstack ###
+    # for BROWSERSTACK ###
     # Windows Firefox
     # desired_cap = {
     #     'browser': 'Firefox',
     #     'os_version': '11',
     #     'os': 'Windows',
-    #     'name': 'Quick view'
+    #     'sessionName': test_name
     # }
     # iPhone
-    desired_cap = {
-            'browser': 'Safari',
-            'os_version': '16',
-            'device': 'iPhone 14',
-            'name': test_name
-    }
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+    # desired_cap = {
+    #     'bstack:options': {
+    #         "osVersion": "9.0",
+    #         "deviceName": "Google Pixel 3",
+    #         "realMobile": "true",
+    #         "sessionName": test_name,
+    #         "local": "false",
+    #     },
+    # }
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    # context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
